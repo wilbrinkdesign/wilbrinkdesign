@@ -1,5 +1,3 @@
-# Hello World!
+# About me
 
-Welcome ;)
-
-Wilbrink Design @ your service!
+A Dutch Graphic and Web Designer from Holland!
