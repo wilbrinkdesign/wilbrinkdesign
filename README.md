@@ -1,3 +1,3 @@
 # About me
 
-A Dutch Graphic Designer and Web Designer from Holland!
+A Dutch Graphic & Web Designer from Holland!
