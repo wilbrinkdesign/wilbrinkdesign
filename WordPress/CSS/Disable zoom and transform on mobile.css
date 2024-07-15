@@ -1,0 +1,5 @@
+@media screen and (max-width: 980px) {
+	.et_pb_column:hover {
+		transform: none !important;
+	}
+}

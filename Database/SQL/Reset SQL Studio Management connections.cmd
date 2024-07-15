@@ -1,0 +1,1 @@
+del "C:\Users\%username%\AppData\Roaming\Microsoft\Microsoft SQL Server\100\Tools\Shell\SqlStudio.bin"

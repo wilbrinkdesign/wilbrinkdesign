@@ -1,0 +1,5 @@
+@media (min-width: 980px) {
+	.et-fixed-header #logo {
+		content: url('/path/logo/logo.png');
+	}
+}

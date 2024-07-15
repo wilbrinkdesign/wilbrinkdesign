@@ -1,0 +1,13 @@
+---
+- hosts: all
+  gather_facts: false
+  tasks:
+  - name: Create log dir
+    ansible.windows.win_file:
+      path: C:\Temp
+      state: directory
+  - name: Install latest Windows Updates
+    win_updates:
+      category_names: '*'
+      state: installed
+      log_path: C:\Temp\WU.log

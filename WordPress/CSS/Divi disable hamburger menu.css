@@ -1,0 +1,7 @@
+.lwp-hide-mobile-menu.et_pb_menu .et_pb_menu__menu,.lwp-hide-mobile-menu.et_pb_fullwidth_menu .et_pb_menu__menu { 
+	display: flex!important; 
+} 
+
+.lwp-hide-mobile-menu .et_mobile_nav_menu { 
+	display: none; 
+}

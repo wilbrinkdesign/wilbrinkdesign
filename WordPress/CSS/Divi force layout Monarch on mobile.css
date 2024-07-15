@@ -1,0 +1,8 @@
+@media screen and (max-width:1024px) {
+	.et_monarch .et_social_mobile {
+		display: none !important;
+	}
+	.et_social_sidebar_networks.et_social_mobile_on {
+		display: block !important;
+	}
+}

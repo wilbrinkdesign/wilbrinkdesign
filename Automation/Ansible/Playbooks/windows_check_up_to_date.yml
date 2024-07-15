@@ -1,0 +1,20 @@
+---
+- hosts: all
+  gather_facts: false
+  tasks:
+  - name: Check if Windows is up-to-date
+    ansible.windows.win_powershell:
+      script: |
+        $SearchUpdates = New-Object -ComObject "Microsoft.Update.Searcher"
+        $InstalledUpdates = $SearchUpdates.GetTotalHistoryCount()
+        $AllUpdates = $SearchUpdates.QueryHistory(0,$InstalledUpdates)
+        $InstalledOn = $AllUpdates | Get-Date -Format "yyyy-MM"
+        
+        If ($InstalledOn -like (Get-Date -Format "yyyy-MM"))
+        {
+          $Ansible.Changed = $False
+        }
+        Else
+        {
+          $Ansible.Changed = $True
+        }

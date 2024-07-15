@@ -1,0 +1,22 @@
+---
+- hosts: all
+  gather_facts: false
+  tasks:
+  - name: Start Windows Firewall service and set startup mode to auto
+    ansible.windows.win_service:
+      name: mpssvc
+      start_mode: auto
+      state: started
+
+  - name: Enable all Windows Firewall profiles
+    ansible.windows.win_powershell:
+      script: |
+        If ((Get-NetFirewallProfile -All | Where-Object { $_.Enabled -eq "False" }))
+        {
+          Get-NetFirewallProfile -All | Set-NetFirewallProfile -Enabled True
+          $Ansible.Changed = $True
+        }
+        Else
+        {
+          $Ansible.Changed = $False
+        }

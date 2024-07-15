@@ -1,0 +1,8 @@
+.btn-inline .et_pb_button_module_wrapper {
+	display: inline-block;
+	margin: 0 5px;
+}
+
+.btn-inline {
+	text-align: center !important;
+}

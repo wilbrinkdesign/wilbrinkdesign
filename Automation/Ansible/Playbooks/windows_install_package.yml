@@ -1,0 +1,8 @@
+---
+- hosts: all
+  gather_facts: false
+  tasks:
+  - name: Install Git for Windows (example of any software)
+    win_chocolatey:
+      name: git
+      state: latest
