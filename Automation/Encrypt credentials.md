@@ -25,12 +25,10 @@ New-PSDrive -Name "<name>" -Root "<destination>" -PSProvider "FileSystem" -Crede
 
 ```powershell
 # Create encrypted file
-$Credentials = Get-Credential # Provide credentials for CLIENT01\Admin
-$Password_File = "<file>.cred" # Create the file
-($Credentials).Password | ConvertFrom-SecureString -Key (1..16) | Out-File $Password_File
+(Get-Credential).Password | ConvertFrom-SecureString -Key (1..16) | Out-File "<file>.cred" # Create the file
 
 # Use the encrypted file
 $Password = Get-Content "<file>.cred" | ConvertTo-SecureString -Key (1..16)
-$Cred = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList ($Credentials).UserName, $Password
+$Cred = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "<username>", $Password
 New-PSDrive -Name "<name>" -Root "<destination>" -PSProvider "FileSystem" -Credential $Cred # Use the credentials to make a drive mapping
 ```
