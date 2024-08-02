@@ -6,9 +6,9 @@ manage-bde -off C:
 
 Do
 {
-    sleep -s 5
+	sleep -s 5
 
-    $VolumeStatus = (Get-BitLockerVolume C:).VolumeStatus
+	$VolumeStatus = (Get-BitLockerVolume C:).VolumeStatus
 } While ($VolumeStatus -eq "DecryptionInProgress")
 
 Enable-BitLocker -MountPoint "C:" -EncryptionMethod XtsAes256 -RecoveryPasswordProtector -UsedSpaceOnly

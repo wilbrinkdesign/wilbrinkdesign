@@ -27,9 +27,9 @@ $Download_Link = $KB_Updates[$Windows_Build].URL
 # If the device needs the update, install it!
 If ($KB_Number)
 {
-    If (!($WU_All | Where-Object { $_ -like "*$KB_Number*" }))
-    {
-        (New-Object System.Net.WebClient).DownloadFile($Download_Link, "$env:TEMP\$KB_Number.msu")
-        wusa.exe "$env:TEMP\$KB_Number.msu" /quiet /norestart
-    }
+	If (!($WU_All | Where-Object { $_ -like "*$KB_Number*" }))
+	{
+		(New-Object System.Net.WebClient).DownloadFile($Download_Link, "$env:TEMP\$KB_Number.msu")
+		wusa.exe "$env:TEMP\$KB_Number.msu" /quiet /norestart
+	}
 }
