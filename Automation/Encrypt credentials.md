@@ -1,28 +1,30 @@
 ### Export-Clixml
 
-Encrypt plain text credentials with Export-Clixml in scripts. It is important to notice that you should run the Export-Clixml command on the server with the user that will run your script. Export-Clixml uses the combination of both the servername and the users password to encrypt the XML-based file. This way you can only decrypt the file on the server itself with that specific user.
+Encrypt plain text credentials with Export-Clixml in scripts. You have 2 options. You can choose to encrypt a file so that only a specific user on a specific server can decrypt the file, or you can choose to encrypt a file that any user can decrypt.
 
-#### Example
+#### Example where you need the specific user on the specific server to decrypt the file
 
-1. You want to encrypt the credentials of a local account **CLIENT01\Admin** which you use to create a drive mapping with
+1. You want to encrypt the credentials of a local account **CLIENT01\Admin** which you can use for making a drive mapping
 2. Your server that hosts the script is **SERVER01**
 3. The user that runs the script is **SVC_USER01**
 
 **Run PowerShell as user SVC_USER01 on SERVER01**
 
 ```powershell
-# In the pop-up window you want to provide the credentials of CLIENT01\Admin
-Get-Credential | Export-Clixml -Path <encrypted_credentials>.<xml/cred/sec> # Extension doesn't matter
+Get-Credential | Export-Clixml -Path "<file>.cred" # Provide credentials for CLIENT01\Admin
+$Cred = Import-Clixml -Path "<file>.cred" # On SERVER01 with user SVC_USER01 you can store the credentials in a variable
+New-PSDrive -Name "<name>" -Root "<destination>" -PSProvider "FileSystem" -Credential $Cred # Use the credentials to make a drive mapping
 ```
 
-**On SERVER01 with user SVC_USER01 you can store the credentials in a variable**
+#### Example where any user can decrypt the file
+
+1. You want to encrypt the credentials of a local account **CLIENT01\Admin** which you can use for making a drive mapping
 
 ```powershell
-$Cred = Import-Clixml -Path <encrypted_credentials>.<xml/cred/sec>
-```
-
-**Use the variable/credentials to make a drive mapping**
-
-```powershell
-New-PSDrive -Name <name> -Root <destination> -PSProvider "FileSystem" -Credential $Cred
+$Credentials = Get-Credential # Provide credentials for CLIENT01\Admin
+$Password_File = "<file>.cred" # Create the file
+($Credentials).Password | ConvertFrom-SecureString -Key (1..16) | Out-File $Password_File
+$User = 
+$Password = Get-Content $Password_File | ConvertTo-SecureString -Key (1..16)
+$Cred = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList ($Credentials).UserName, $Password
 ```
