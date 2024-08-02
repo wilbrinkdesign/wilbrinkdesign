@@ -24,7 +24,7 @@ New-PSDrive -Name "<name>" -Root "<destination>" -PSProvider "FileSystem" -Crede
 $Credentials = Get-Credential # Provide credentials for CLIENT01\Admin
 $Password_File = "<file>.cred" # Create the file
 ($Credentials).Password | ConvertFrom-SecureString -Key (1..16) | Out-File $Password_File
-$User = 
 $Password = Get-Content $Password_File | ConvertTo-SecureString -Key (1..16)
 $Cred = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList ($Credentials).UserName, $Password
+New-PSDrive -Name "<name>" -Root "<destination>" -PSProvider "FileSystem" -Credential $Cred # Use the credentials to make a drive mapping
 ```
